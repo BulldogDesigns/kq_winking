@@ -1,4 +1,5 @@
 local cooldown = 0
+local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
 
 -- Models mapped to their custom animation dictionaries
 local models = {
@@ -47,11 +48,11 @@ local function PerformWink(vehicle, dir)
 end
 
 RegisterNetEvent('kq_winking:client:wink', function(netId, dir)
-    if not NetworkDoesNetworkIdExist(netId) or not NetworkDoesEntityExistWithNetworkId(netId) then return end
-        
+    if not NetworkDoesNetworkIdExist(netId) then return end
+
     local vehicle = NetworkGetEntityFromNetworkId(netId)
-    if DoesEntityExist(vehicle) then return end
-    
+    if not DoesEntityExist(vehicle) then return end
+
     PerformWink(vehicle, dir)
 end)
 
